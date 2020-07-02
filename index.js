@@ -24,8 +24,8 @@ client.on('message', message => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
 
-    if (!client.commands.has(commandName)) return;
-    const command = client.commands.get(commandName);
+    const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    if (!command) return;
 
     if  (command.guildOnly && message.channel.type !== 'text') {
         return message.reply('Je ne peux pas executé cette commande dans les DM!');
