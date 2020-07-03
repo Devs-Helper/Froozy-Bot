@@ -58,7 +58,7 @@ client.on('message', message => {
             return message.reply(`Pas si vite! Encore ${timeLeft.toFixed(1)} secondes!`);
         }
     }
-
+    
     try {
         command.execute(message, args);
     } catch (error) {

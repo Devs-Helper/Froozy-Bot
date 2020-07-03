@@ -1,9 +1,9 @@
 module.exports = {
-    name: 'kick',
-    description: 'Kick a member off the server',
+    name: 'Band',
+    description: 'Ban a member off the server',
     aliases: [],
     args: true,
-    usage: '<member> <reason>',
+    usage: '<member>',
     guildOnly: true,
     cooldown: 5,
     execute(message, args) {
@@ -12,27 +12,28 @@ module.exports = {
 
         if (user) {
             const member = message.guild.member(user);
-            
-            if (member) {
 
+            if (member) {
                 if (!reason) {
                     return message.reply(`Veuillez mettre une raison`);
                 }
                 member
-                .kick(reason)
+                .ban({
+                    reason: 'Raison',
+                })
                 .then(() => {
-                    message.reply(`${user.tag} a bien été kick du serveur`);
+                    message.reply(`L'utilisateur a bien été banni du serveur`);
                 })
                 .catch(err => {
-                    message.reply('Je ne peux pas kick cet utilisateur');
+                    message.reply(`Je n'ai pas pu bannir cet utilisateur`);
                     console.error(err);
                 });
             } else {
-                message.reply('Cet utilisateur n\'est pas sur le serveur');
+                message.reply(`L'utilisateur n'est pas sur le serveur`);
             }
-
         } else {
-            message.reply('Veuillez mentionner l\'utilisateur à kick');
+            message.reply(`Veuillez mentionner l'utilisateur a bannir`);
         }
-    },
-};
+
+    }
+}
