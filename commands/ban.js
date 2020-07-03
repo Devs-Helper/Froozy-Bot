@@ -7,19 +7,29 @@ module.exports = {
     guildOnly: true,
     cooldown: 5,
     execute(message, args) {
+
+        if (!message.guild.me.hasPermission("BAN_MEMBERS")) {
+            return message.reply(`Je n'ai pas les permissions requise pour ban un utilisateur`);
+        }
+
+        const member = message.member;
+        if (member.hasPermission("BAN_MEMBERS")) {
+            return message.reply(`Vous n'avez pas les permissions requise pour ban un utilisateur`);
+        }
+
+        let reaBan = args.slice(1).join(" ");
+        if (!reaBan) {
+            return message.reply(`Veuillez mettre une raison du Ban`);
+        }
+
         const user = message.mentions.users.first();
-        let reason = args.slice(1).join(" ");
-
         if (user) {
-            const member = message.guild.member(user);
+            const memberBan = message.guild.member(user);
 
-            if (member) {
-                if (!reason) {
-                    return message.reply(`Veuillez mettre une raison`);
-                }
-                member
+            if (memberBan) {
+                memberBan
                 .ban({
-                    reason: 'Raison',
+                    reason: reaBan,
                 })
                 .then(() => {
                     message.reply(`L'utilisateur a bien été banni du serveur`);
