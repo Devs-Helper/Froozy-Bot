@@ -1,9 +1,9 @@
 module.exports = {
-    name: 'Band',
-    description: 'Ban a member off the server',
-    aliases: [],
+    name: 'ban',
+    description: 'Ban a member to the server',
+    aliases: ['b'],
     args: true,
-    usage: '<member>',
+    usage: '<member> <reason>',
     guildOnly: true,
     cooldown: 5,
     execute(message, args) {
@@ -13,7 +13,7 @@ module.exports = {
         }
 
         const member = message.member;
-        if (member.hasPermission("BAN_MEMBERS")) {
+        if (!member.hasPermission("BAN_MEMBERS")) {
             return message.reply(`Vous n'avez pas les permissions requise pour ban un utilisateur`);
         }
 

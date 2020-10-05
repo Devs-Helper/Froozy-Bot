@@ -28,7 +28,7 @@ client.on('message', message => {
     if (!command) return;
 
     if  (command.guildOnly && message.channel.type !== 'text') {
-        return message.reply('Je ne peux pas executé cette commande dans les DM!');
+        return message.reply('Je ne peux pas executer cette commande dans les DM!');
     }
 
     if (command.args && !args.length) {

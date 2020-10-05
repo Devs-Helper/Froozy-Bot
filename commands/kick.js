@@ -12,7 +12,7 @@ module.exports = {
         }
 
         const member = message.member;
-        if (member.hasPermission("KICK_MEMBERS")) {
+        if (!member.hasPermission("KICK_MEMBERS")) {
             return message.reply(`Vous n'avez pas les permissions requise pour kick un utilisateur`);
         }
 
